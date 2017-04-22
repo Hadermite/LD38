@@ -3,7 +3,6 @@ package se.wiklund.ld38.game;
 import se.wiklund.haderengine.Engine;
 import se.wiklund.haderengine.View;
 import se.wiklund.haderengine.graphics.Texture;
-import se.wiklund.haderengine.input.InputEnabledViews;
 import se.wiklund.haderengine.maths.Transform;
 import se.wiklund.haderengine.ui.UIButton;
 import se.wiklund.haderengine.ui.UILabel;
@@ -41,7 +40,7 @@ public class HUD extends View implements UIButtonListener {
 	@Override
 	public void onButtonUp(UIButton button, int mouseButton) {
 		if (button == btnShop) {
-			
+			game.openShop();
 		}
 	}
 	

@@ -10,9 +10,9 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Starting...");
 		engine = new Engine("LD38", false, true);
-		System.out.println("Engine initialized!");
+		System.out.println("Engine Initialized!");
 		engine.setState(new Game());
-		System.out.println("State set!");
+		System.out.println("Game Loaded!");
 		engine.start();
 	}
 }
