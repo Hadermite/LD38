@@ -41,22 +41,36 @@ public class Tile extends View {
 	}
 	
 	public boolean isAtMaxLevel() {
-		return upgradeLevel >= type.getTextures().length - 1;
+		return upgradeLevel >= type.getTextures().length;
 	}
 	
 	public int getUpgradeLevel() {
 		return upgradeLevel;
 	}
 	
-	public void setUpgradeLevel(int upgradeLevel) {
-		this.upgradeLevel = upgradeLevel;
+	public void upgradeTile() {
+		if (isAtMaxLevel()) {
+			System.err.println("Tile of type " + type.getName() + " is already at max level!");
+			return;
+		}
+		
+		upgradeLevel++;
+		setTexture(type.getTextures()[upgradeLevel - 1]);
 	}
 	
 	public enum TileType {
 		GRASS(0, 0, 0, 0, "Grass", new Texture[] { new Texture(0xFF0c9b00) }),
 		ROAD(10, 0, 0, 0, "Road", new Texture[] { new Texture(0xFF555555) }),
-		HOUSE(1000, 20, 30000, 350, "Small House", new Texture[] { new Texture(0xFF9b6417) }),
-		POWER_GENERATOR(1000, 0, -100000, 0, "Generator", new Texture[] { Textures.TEX_TILE_POWER_GENERATOR }),
+		
+		HOUSE(1000, 20, 30000, 350, "House", new Texture[] {
+				new Texture("/textures/tiles/house_1.png"),
+				new Texture("/textures/tiles/house_2.png"),
+				new Texture("/textures/tiles/house_3.png"),
+			}),
+		POWER_GENERATOR(1000, 0, -100000, 0, "Generator", new Texture[] {
+				new Texture("/textures/tiles/wind_turbine.png"),
+				new Texture("/textures/tiles/coal_power_plant.png"),
+		}),
 		WATER_TOWER(1000, 0, 0, -10000, "Water Tower", new Texture[] { Textures.TEX_TILE_WATER_TOWER });
 		
 		private int cost;

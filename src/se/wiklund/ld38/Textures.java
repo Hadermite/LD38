@@ -5,6 +5,7 @@ import se.wiklund.haderengine.graphics.Texture;
 public class Textures {
 	
 	public static final Texture TEX_WHITE = new Texture(0xFFFFFFFF);
+	public static final Texture TEX_RED = new Texture(0xFFFF0000);
 	public static final Texture TEX_GREEN = new Texture(0xFF00FF00);
 	public static final Texture TEX_GRAY = new Texture(0xFF777777);
 	
