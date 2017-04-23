@@ -10,20 +10,33 @@ public class Tile extends View {
 	public static final int SIZE = 128;
 	
 	private TileType type;
+	private int xPos, yPos;
 	private int upgradeLevel = 1;
 	private World world;
 	
 	public Tile(TileType type, int xPos, int yPos, World world) {
 		super(type.getTextures()[0], new Transform(xPos * SIZE, yPos * SIZE, SIZE, SIZE));
 		this.type = type;
+		this.xPos = xPos;
+		this.yPos = yPos;
 		this.world = world;
 		
 		InputEnabledViews.setEnabled(this);
 	}
 	
 	@Override
-	public void onMouseButtonDown(int button) {
+	public void onMouseButtonUp(int button) {
 		world.tileClicked(this);
+	}
+	
+	public void upgradeTile() {
+		if (isAtMaxLevel()) {
+			System.err.println("Tile of type " + type.getName() + " is already at max level!");
+			return;
+		}
+		
+		upgradeLevel++;
+		setTexture(type.getTextures()[upgradeLevel - 1]);
 	}
 	
 	public TileType getType() {
@@ -47,42 +60,42 @@ public class Tile extends View {
 		return upgradeLevel;
 	}
 	
-	public void upgradeTile() {
-		if (isAtMaxLevel()) {
-			System.err.println("Tile of type " + type.getName() + " is already at max level!");
-			return;
-		}
-		
-		upgradeLevel++;
-		setTexture(type.getTextures()[upgradeLevel - 1]);
+	public int getxPos() {
+		return xPos;
+	}
+	
+	public int getyPos() {
+		return yPos;
 	}
 	
 	public enum TileType {
-		GRASS(0, 0, 0, 0, "Grass", new Texture[] { new Texture(0xFF56A01F) }),
-		ROAD(10, 0, 0, 0, "Road", new Texture[] { new Texture(0xFFBCBCBC) }),
+		GRASS(0, 0, 0, 0, 0, "Grass", new Texture[] { new Texture(0xFF56A01F) }),
+		ROAD(10, 0, 0, 0, 0, "Road", new Texture[] { new Texture(0xFFBCBCBC) }),
 		
-		HOUSE(1000, 20, 30000, 350, "House", new Texture[] {
+		HOUSE(1000, 20, 20, 30000, 350, "House", new Texture[] {
 				new Texture("/textures/tiles/house_1.png"),
 				new Texture("/textures/tiles/house_2.png"),
 				new Texture("/textures/tiles/house_3.png"),
 		}),
-		POWER_GENERATOR(1000, 0, -100000, 0, "Generator", new Texture[] {
+		POWER_GENERATOR(1000, 0, 0, -100000, 0, "Generator", new Texture[] {
 				new Texture("/textures/tiles/wind_turbine.png"),
 				new Texture("/textures/tiles/coal_power_plant.png"),
 		}),
-		WATER_TOWER(1000, 0, 0, -10000, "Water Tower", new Texture[] {
+		WATER_TOWER(1000, 0, 0, 0, -10000, "Water Tower", new Texture[] {
 				new Texture("/textures/tiles/water_tower.png"),
 		});
 
 		private int cost;
+		private int population;
 		private int taxIncome;
 		private int electricityConsumption;
 		private int waterConsumption;
 		private String name;
 		private Texture[] textures;
 
-		private TileType(int cost, int taxIncome, int electricityConsumption, int waterConsumption, String name, Texture[] textures) {
+		private TileType(int cost, int population, int taxIncome, int electricityConsumption, int waterConsumption, String name, Texture[] textures) {
 			this.cost = cost;
+			this.population = population;
 			this.taxIncome = taxIncome;
 			this.electricityConsumption = electricityConsumption;
 			this.waterConsumption = waterConsumption;
@@ -92,6 +105,10 @@ public class Tile extends View {
 
 		public int getCost() {
 			return cost;
+		}
+		
+		public int getPopulation() {
+			return population;
 		}
 
 		public int getTaxIncome() {
