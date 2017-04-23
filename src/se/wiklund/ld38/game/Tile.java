@@ -4,7 +4,6 @@ import se.wiklund.haderengine.View;
 import se.wiklund.haderengine.graphics.Texture;
 import se.wiklund.haderengine.input.InputEnabledViews;
 import se.wiklund.haderengine.maths.Transform;
-import se.wiklund.ld38.Textures;
 
 public class Tile extends View {
 	
@@ -59,27 +58,29 @@ public class Tile extends View {
 	}
 	
 	public enum TileType {
-		GRASS(0, 0, 0, 0, "Grass", new Texture[] { new Texture(0xFF0c9b00) }),
-		ROAD(10, 0, 0, 0, "Road", new Texture[] { new Texture(0xFF555555) }),
+		GRASS(0, 0, 0, 0, "Grass", new Texture[] { new Texture(0xFF56A01F) }),
+		ROAD(10, 0, 0, 0, "Road", new Texture[] { new Texture(0xFFBCBCBC) }),
 		
 		HOUSE(1000, 20, 30000, 350, "House", new Texture[] {
 				new Texture("/textures/tiles/house_1.png"),
 				new Texture("/textures/tiles/house_2.png"),
 				new Texture("/textures/tiles/house_3.png"),
-			}),
+		}),
 		POWER_GENERATOR(1000, 0, -100000, 0, "Generator", new Texture[] {
 				new Texture("/textures/tiles/wind_turbine.png"),
 				new Texture("/textures/tiles/coal_power_plant.png"),
 		}),
-		WATER_TOWER(1000, 0, 0, -10000, "Water Tower", new Texture[] { Textures.TEX_TILE_WATER_TOWER });
-		
+		WATER_TOWER(1000, 0, 0, -10000, "Water Tower", new Texture[] {
+				new Texture("/textures/tiles/water_tower.png"),
+		});
+
 		private int cost;
 		private int taxIncome;
 		private int electricityConsumption;
 		private int waterConsumption;
 		private String name;
 		private Texture[] textures;
-		
+
 		private TileType(int cost, int taxIncome, int electricityConsumption, int waterConsumption, String name, Texture[] textures) {
 			this.cost = cost;
 			this.taxIncome = taxIncome;
@@ -92,7 +93,7 @@ public class Tile extends View {
 		public int getCost() {
 			return cost;
 		}
-		
+
 		public int getTaxIncome() {
 			return taxIncome;
 		}
